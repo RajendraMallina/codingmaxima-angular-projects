@@ -1,0 +1,23 @@
+<main class="stopwatch" aria-labelledby="stopwatch-title" [class.running]="snapshot().status === 'running'">
+  <h1 id="stopwatch-title">Stopwatch</h1>
+  <p class="intro">Start a run, pause when you need to, and resume from where you left off.</p>
+
+  <div class="time" role="timer" aria-live="off" aria-label="Elapsed time" aria-describedby="precision">{{ display() }}</div>
+  <p id="precision" class="precision">Minutes : Seconds . Hundredths</p>
+  <p class="status" role="status" aria-live="polite" aria-atomic="true">{{ statusText() }}</p>
+
+  <div class="controls" role="group" aria-label="Stopwatch controls">
+    <button #startButton type="button" (click)="startOrResume(pauseButton)"
+      [disabled]="!ready() || snapshot().status === 'running'">
+      {{ snapshot().status === 'paused' ? 'Resume' : 'Start' }}
+    </button>
+    <button #pauseButton type="button" (click)="pause(startButton)"
+      [disabled]="!ready() || snapshot().status !== 'running'">Pause</button>
+    <button class="reset" type="button" (click)="reset(startButton)" [disabled]="!ready()">Reset</button>
+  </div>
+
+  <p class="note">Display precision is 0.01 seconds, truncated to hundredths. Total minutes can exceed 59.
+    The display refreshes with browser animation frames; timing uses a monotonic clock, not frame counts.</p>
+  <p class="note">While this tab is hidden, rendering stops and a running stopwatch keeps measuring.
+    On return, it shows the actual elapsed duration. Paused time is excluded.</p>
+</main>

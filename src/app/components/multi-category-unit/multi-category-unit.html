@@ -1,0 +1,63 @@
+<main class="converter" aria-labelledby="converter-title">
+  <h1 id="converter-title">Multi-Category Unit Converter</h1>
+  <p class="intro">Choose a category and enter one value to see all compatible conversions.</p>
+
+  <fieldset class="categories">
+    <legend>Conversion category</legend>
+    @for (item of categories; track item.id) {
+      <label [class.active]="state().category === item.id">
+        <input type="radio" name="unit-category" [value]="item.id" [checked]="state().category === item.id"
+          (change)="changeCategory(item.id, valueInput)" />
+        {{ item.label }}
+      </label>
+    }
+  </fieldset>
+
+  <section class="workspace" aria-labelledby="category-title">
+    <h2 id="category-title">{{ category().label }} conversion</h2>
+    <div class="input-grid">
+      <div>
+        <label for="source-unit">Source unit</label>
+        <select id="source-unit" [value]="state().source" (change)="changeSource($event, valueInput)">
+          @for (unit of category().units; track unit.id) {
+            <option [value]="unit.id">{{ unit.label }} ({{ unit.symbol }})</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label for="unit-value">Value in {{ source().label }} ({{ source().symbol }})</label>
+        <input #valueInput id="unit-value" type="text" inputmode="decimal" maxlength="128" autocomplete="off"
+          [value]="state().rawValue" (input)="updateValue($event)" placeholder="Enter a value"
+          [attr.aria-invalid]="conversion().status === 'invalid' ? 'true' : null"
+          aria-describedby="category-help input-rules input-error" />
+      </div>
+    </div>
+    <p id="category-help" class="help">{{ category().help }}</p>
+    <p id="input-rules" class="help">Use a decimal point or scientific notation. Signed values are accepted;
+      no physical range limits are imposed. Changing category or source clears the value.</p>
+    <p id="input-error" class="error" aria-live="polite">{{ conversion().message }}</p>
+
+    <section class="results" aria-labelledby="results-title" aria-live="polite" aria-atomic="true">
+      <h3 id="results-title">Converted results</h3>
+      @if (conversion().status === 'valid') {
+        <dl class="result-grid">
+          @for (result of conversion().results; track result.unit.id) {
+            <div class="result-card" [attr.data-unit]="result.unit.id">
+              <dt>{{ result.unit.label }}</dt>
+              <dd><output>{{ formatResult(result.value) }} <span>{{ result.unit.symbol }}</span></output></dd>
+            </div>
+          }
+        </dl>
+      } @else if (conversion().status === 'empty') {
+        <p>Enter a value to see compatible results.</p>
+      } @else {
+        <p>Correct the input to see results.</p>
+      }
+    </section>
+  </section>
+
+  <button class="reset" type="button" (click)="reset(valueInput)">Reset to Length</button>
+  <p class="format-note">Results use your locale's number formatting with up to 6 decimal places.
+    Calculations use unrounded values. Targets always differ from the source and belong to the same category.</p>
+  <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{{ announcement() }}</p>
+</main>

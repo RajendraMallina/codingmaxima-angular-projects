@@ -1,0 +1,26 @@
+<section class="converter" aria-labelledby="converter-title">
+  <h1 id="converter-title">Centimeters and Feet Converter</h1>
+  <p>Enter a length in either field to convert it automatically.</p>
+
+  <div class="fields">
+    <div class="field">
+      <label for="centimeters">Centimeters (cm)</label>
+      <input id="centimeters" type="number" min="0" step="any" placeholder="Enter centimeters"
+        [value]="centimeters()" (input)="convert($event, 'centimeters')" />
+    </div>
+    <div class="field">
+      <label for="feet">Feet (ft)</label>
+      <input id="feet" type="number" min="0" step="any" placeholder="Enter feet"
+        [value]="feet()" (input)="convert($event, 'feet')" />
+    </div>
+  </div>
+
+  <p class="result" aria-live="polite">
+    @if (centimeters() !== null && feet() !== null) {
+      {{ centimeters() | number: '1.0-6' }} cm = {{ feet() | number: '1.0-6' }} ft
+    } @else {
+      Enter a valid, non-negative length to see the result.
+    }
+  </p>
+  <p class="formula">1 foot = 30.48 centimeters. Feet are shown as decimal values.</p>
+</section>

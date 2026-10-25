@@ -1,0 +1,77 @@
+:host {
+  display: grid;
+  place-items: center;
+  min-height: 90vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background: #f0f4ff;
+  color: #172033;
+}
+.game {
+  width: 100%;
+  max-width: 620px;
+  box-sizing: border-box;
+  padding: clamp(1.25rem, 5vw, 2.5rem);
+  border: 2px solid #64748b;
+  border-radius: 20px;
+  background: #fff;
+  text-align: center;
+}
+h1 { margin-top: 0; font-size: clamp(1.5rem, 5vw, 2rem); }
+p { line-height: 1.6; }
+.secret {
+  display: grid;
+  place-items: center;
+  width: 90px;
+  height: 90px;
+  margin: 1.5rem auto;
+  border-radius: 18px;
+  background: #172033;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 700;
+}
+.scores { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 3rem; }
+dt { font-size: 0.95rem; }
+dd { margin: 0.4rem 0 0; font-size: 1.75rem; font-weight: 700; }
+form { margin-top: 1.75rem; }
+label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+.guess-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+input {
+  width: 120px;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 2px solid #64748b;
+  border-radius: 8px;
+  color: #172033;
+  font: inherit;
+  font-size: 1.1rem;
+  text-align: center;
+}
+button {
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #1e40af;
+  border-radius: 8px;
+  background: #1e40af;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover:enabled { background: #1e3a8a; }
+button:disabled { background: #475569; border-color: #475569; cursor: default; }
+input:focus-visible, button:focus-visible { outline: 3px solid #172033; outline-offset: 4px; }
+.feedback { min-height: 3.2em; font-weight: 600; overflow-wrap: anywhere; }
+.restart { background: #fff; color: #1e40af; }
+.restart:hover:enabled { background: #eff6ff; }
+.rules { margin-bottom: 0; color: #475569; font-size: 0.9rem; }
+.won { border-color: #166534; background: #f0fdf4; }
+.won .secret { background: #166534; }
+.lost { border-color: #991b1b; background: #fff1f2; }
+.lost .secret { background: #991b1b; }
+@media (prefers-reduced-motion: reduce) {
+  :host * { animation: none; transition: none; }
+}

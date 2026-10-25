@@ -1,0 +1,16 @@
+<main class="clock-panel" aria-labelledby="clock-title">
+  <h1 id="clock-title">Digital Clock</h1>
+  <p class="subtitle">Current local time</p>
+
+  <time class="clock-display" [attr.datetime]="isoTime()" aria-live="off">{{ time() }}</time>
+  <p class="date">{{ date() }}</p>
+
+  <fieldset>
+    <legend>Time format</legend>
+    <label><input type="radio" name="clock-format" value="12" [checked]="format() === '12'"
+      (change)="selectFormat($event)" /> 12-hour</label>
+    <label><input type="radio" name="clock-format" value="24" [checked]="format() === '24'"
+      (change)="selectFormat($event)" /> 24-hour</label>
+  </fieldset>
+  <p class="note">Uses your device's clock and local time zone.</p>
+</main>
