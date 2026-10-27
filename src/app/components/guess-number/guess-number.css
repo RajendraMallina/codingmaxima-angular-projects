@@ -75,3 +75,23 @@ input:focus-visible, button:focus-visible { outline: 3px solid #172033; outline-
 @media (prefers-reduced-motion: reduce) {
   :host * { animation: none; transition: none; }
 }
+
+:host { display:grid;place-items:center;min-height:initial;padding:clamp(31px,5vw,60px) 1.25rem 52px;color:var(--cm-text);background:transparent;font-family:inherit; }
+.game { position:relative;width:min(100%,940px);max-width:940px;padding:clamp(26px,5vw,48px);overflow:hidden;border:1px solid #e8e8f1;border-radius:29px;background:linear-gradient(142deg,#fff,#fff 67%,#fcfbff);box-shadow:var(--cm-shadow-sm);text-align:center;transition:border-color .25s,background .25s; }
+.game::before { position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#8980f0,#f5ba67,#64c6ae);content:""; }
+.game header { max-width:620px;margin:0 auto; }
+.game-kicker { display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0 11px;color:#8172c8;font-size:.68rem;font-weight:800;letter-spacing:.13em; }.game-kicker span{color:#e4a04f}
+h1 { margin:0;color:#282b40;font-size:clamp(1.85rem,4.7vw,2.75rem);line-height:1.18;font-weight:750; }
+.game header>p:last-child{margin:9px 0 0;color:#757c90;font-size:.92rem}.game header strong{color:#4e46bd;font-weight:750}
+.secret { width:100px;height:100px;margin:27px auto 24px;border:5px solid #fff;border-radius:27px;background:linear-gradient(145deg,#736bea,#4d46c7);color:#fff;font-family:'Manrope',sans-serif;font-size:3rem;box-shadow:0 9px 26px rgba(83,74,202,.2),0 0 0 1px rgba(93,82,215,.12);transition:background .22s,transform .22s; }
+.scores { display:flex;justify-content:center;gap:13px;margin:0 auto; }.scores>div{min-width:148px;padding:12px 18px;border:1px solid #ebebf3;border-radius:15px;background:#fafaff}dt{color:#82899c;font-size:.7rem;font-weight:680}.scores dd{margin:3px 0 0;color:#41445e;font-family:'Manrope',sans-serif;font-size:1.6rem;line-height:1.1;font-weight:760}
+form { width:min(100%,510px);margin:27px auto 0; }.game form>label{margin-bottom:8px;color:#555c71;font-size:.8rem} .guess-controls{display:grid;grid-template-columns:1fr auto;gap:9px}
+input { width:100%;min-height:53px;padding:12px 15px;border:1px solid #e3e4ee;border-radius:12px;background:#fafaff;color:#343750;font-family:'Manrope',sans-serif;font-size:1.2rem;font-weight:700;text-align:left;transition:border .15s,box-shadow .15s; }
+input:focus-visible{outline:0;border-color:#837bec;box-shadow:0 0 0 4px rgba(94,85,220,.11)}
+button { min-height:50px;padding:11px 18px;border:1px solid #5149c8;border-radius:12px;background:linear-gradient(140deg,#6961de,#4f47ca);color:white;font-size:.84rem;font-weight:740;box-shadow:0 5px 15px rgba(82,73,201,.16);transition:transform .15s,filter .15s; }
+button:hover:enabled{transform:translateY(-1px);filter:brightness(1.08)}button:disabled{opacity:.45;box-shadow:none}button:focus-visible{outline-color:#827cf1}
+.feedback { display:grid;place-items:center;min-height:62px;margin:17px auto 0;padding:11px 17px;border:1px solid #efedf8;border-radius:14px;background:#faf9ff;color:#56547a;font-size:.88rem;line-height:1.55;font-weight:650;overflow-wrap:anywhere; }
+.restart { margin:14px 0 0;background:#fff;color:#5550bd;box-shadow:none;border-color:#dcdaf4 }.restart:hover:enabled{background:#f6f5ff}.rules { max-width:580px;margin:23px auto 0;color:#83899b;font-size:.75rem;line-height:1.65; }
+.won { border-color:#b4e2d4;background:linear-gradient(145deg,#fff,#f7fffb); }.won::before{background:linear-gradient(90deg,#47bd94,#9fdc91)}.won .secret{background:linear-gradient(145deg,#32ae87,#188d6c);box-shadow:0 9px 26px rgba(39,160,120,.2),0 0 0 1px rgba(39,160,120,.12);transform:scale(1.04)}.won .feedback{border-color:#cfecdf;background:#f4fcf7;color:#20775b}
+.lost { border-color:#f0c3c9;background:linear-gradient(145deg,#fff,#fff9fa); }.lost::before{background:linear-gradient(90deg,#e88391,#efb179)}.lost .secret{background:linear-gradient(145deg,#df7c8a,#bd4d5b)}.lost .feedback{border-color:#f1d5d8;background:#fff7f8;color:#a54350}
+@media(max-width:520px){:host{padding:27px 14px 34px}.game{padding:29px 17px 24px;border-radius:23px}.secret{width:82px;height:82px;margin:22px auto;font-size:2.5rem;border-radius:23px}.scores{gap:8px}.scores>div{min-width:0;flex:1;padding:12px 9px}.scores dd{font-size:1.4rem}.guess-controls{grid-template-columns:1fr}.guess-controls button{width:100%}form{margin-top:24px}.rules{margin-top:19px}}

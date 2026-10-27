@@ -39,3 +39,17 @@ input:focus-visible { outline: 3px solid #99f6e4; outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   :host * { animation: none; transition: none; }
 }
+
+:host { display:grid; place-items:center; min-height:initial; padding:clamp(35px,6vw,72px) 1.25rem; color:#f0f0ff; background:transparent; font-family:inherit; }
+.clock-panel { position:relative; isolation:isolate; overflow:hidden; width:min(100%,970px); max-width:970px; padding:clamp(32px,6vw,70px) clamp(20px,6vw,76px); border:1px solid rgba(255,255,255,.14); border-radius:32px; background:radial-gradient(ellipse at 51% -45%,rgba(102,94,229,.54),transparent 62%),linear-gradient(138deg,#171832,#1e2144 56%,#25214a); text-align:center; box-shadow:0 24px 72px rgba(36,35,82,.2); }
+.clock-panel::before,.clock-panel::after{position:absolute;z-index:-1;content:"";border:1px solid rgba(188,182,255,.08);border-radius:50%;pointer-events:none}.clock-panel::before{width:560px;height:560px;top:-410px;left:calc(50% - 280px)}.clock-panel::after{width:730px;height:730px;top:-492px;left:calc(50% - 365px)}
+.clock-kicker { display:flex;align-items:center;justify-content:center;gap:9px;margin:0 0 12px;color:#b8b5e7;font-size:.68rem;font-weight:760;letter-spacing:.16em; }
+.clock-kicker span{width:7px;height:7px;border-radius:50%;background:#59dab5;box-shadow:0 0 12px rgba(89,218,181,.75)}
+h1 { margin:0;color:#fff;font-size:clamp(2rem,5vw,3.15rem);font-weight:650;letter-spacing:-.045em; }
+.subtitle { margin:8px 0 0;color:#b9bbd3;font-size:.95rem; }
+.clock-display { display:block;margin:clamp(35px,7vw,66px) 0 8px;color:#a9f3dc;font-family:'Manrope','SF Pro Display',sans-serif;font-size:clamp(3.4rem,12vw,8.2rem);font-weight:650;line-height:1.05;letter-spacing:-.075em;font-variant-numeric:tabular-nums;white-space:nowrap;text-shadow:0 0 48px rgba(92,235,194,.2); }
+.date { margin:0;color:#d1cee8;font-size:clamp(.9rem,2vw,1.15rem);font-weight:550; }
+fieldset { width:max-content;max-width:100%;margin:35px auto 0;padding:5px;border:1px solid rgba(218,216,255,.18);border-radius:15px;background:rgba(10,12,34,.27);gap:3px; }
+legend{float:left;width:100%;margin:0 0 9px;color:#aaaec8;font-size:.73rem;font-weight:650;letter-spacing:.025em}fieldset label{padding:4px 12px;border-radius:10px;color:#d5d5e9;font-size:.84rem;transition:background .15s,color .15s}fieldset label:has(input:checked){background:#36365c;color:white}input{width:15px;height:15px;accent-color:#92ead2}input:focus-visible{outline-color:#a9f3dc}
+.note { margin:19px 0 0;color:#979db8;font-size:.75rem; }.note span{margin-right:6px;color:#69c9ab}
+@media(max-width:520px){:host{padding:30px 14px}.clock-panel{padding:34px 17px;border-radius:25px}.clock-display{font-size:clamp(3rem,14vw,5rem);letter-spacing:-.08em;margin:42px 0 12px}fieldset{margin-top:30px}}

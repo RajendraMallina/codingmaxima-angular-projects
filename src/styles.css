@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  --cm-primary: #5149d8;
+  --cm-primary-dark: #3e37b7;
+  --cm-accent: #f0efff;
+  --cm-teal: #18a999;
+  --cm-bg: #f7f8fc;
+  --cm-surface: #fff;
+  --cm-text: #20243a;
+  --cm-muted: #7c8499;
+  --cm-border: #e8eaf2;
+  --cm-success: #19886d;
+  --cm-warning: #c47b18;
+  --cm-error: #bd4d5b;
+  --cm-radius-sm: 12px;
+  --cm-radius-md: 20px;
+  --cm-radius-lg: 30px;
+  --cm-shadow-sm: 0 4px 20px rgba(34, 40, 78, .045);
+  --cm-shadow-lg: 0 18px 64px rgba(34, 40, 78, .15);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { min-width: 320px; background: var(--cm-bg); scroll-behavior: smooth; }
+body { min-width: 320px; min-height: 100svh; margin:0; color:var(--cm-text); font:400 16px/1.55 'DM Sans', 'Segoe UI', sans-serif; background:radial-gradient(ellipse at 84% -10%,rgba(226,224,255,.65),transparent 33rem),radial-gradient(ellipse at -10% 42%,rgba(224,244,245,.48),transparent 28rem),var(--cm-bg); -webkit-font-smoothing:antialiased; }
+h1,h2,h3,p { margin-top:0; }
+h1,h2,h3 { font-family:'Manrope','DM Sans','Segoe UI',sans-serif; letter-spacing:-.04em; }
+button,input,select { font:inherit; }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible { outline:3px solid #aaa5ff; outline-offset:3px; }
+::selection { background:#dcd9ff; color:#24204b; }
+.cm-project-header { position:relative;display:flex;align-items:center;gap:18px;width:min(100%,1160px);min-height:76px;margin:0 auto 22px;padding:0 4px;border-bottom:1px solid var(--cm-border); }
+.cm-project-brand { display:flex;align-items:center;flex:none;padding:5px 0; }
+.cm-logo { display:block;width:clamp(112px,15vw,154px);height:42px;background:url('https://codingmaxima.com/assets/img/nlogo.png') center / contain no-repeat; }
+.cm-project-divider { width:1px;height:36px;flex:none;background:#e0e2eb; }
+.cm-project-meta { display:grid;gap:3px;min-width:0; }
+.cm-project-meta>span { color:#858a9c;font-size:.59rem;font-weight:780;letter-spacing:.13em; }
+.cm-project-meta>strong { overflow:hidden;color:#34364d;font-family:'Manrope','DM Sans','Segoe UI',sans-serif;font-size:.9rem;font-weight:730;text-overflow:ellipsis;white-space:nowrap; }
+.cm-project-footer { display:flex;justify-content:space-between;align-items:center;gap:12px;width:min(100%,1160px);min-height:61px;margin:24px auto 0;padding:10px 4px;border-top:1px solid var(--cm-border);color:#858a9c;font-size:.72rem; }
+.cm-project-footer strong { color:#555a70;font-weight:740; }
+.cm-footer-label { color:#969bad;font-size:.61rem;font-weight:760;letter-spacing:.1em; }
+.cm-skip-link { position:absolute;z-index:9;top:-4rem;left:1rem;padding:.65rem .9rem;border-radius:9px;background:var(--cm-primary);color:white;text-decoration:none; }
+.cm-skip-link:focus { top:.5rem; }
+@media(max-width:520px){.cm-project-header{min-height:64px;gap:11px;margin-bottom:15px}.cm-logo{width:clamp(102px,31vw,132px);height:37px}.cm-project-divider{height:30px}.cm-project-meta>span{font-size:.52rem;letter-spacing:.09em}.cm-project-meta>strong{font-size:.8rem}.cm-project-footer{min-height:54px;margin-top:17px;font-size:.65rem}.cm-footer-label{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

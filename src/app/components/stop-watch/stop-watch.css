@@ -51,3 +51,20 @@ button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 .reset:hover:enabled { color: #0f172a; }
 .note { font-size: 0.85rem; }
 @media (prefers-reduced-motion: reduce) { :host * { animation: none; transition: none; } }
+
+:host { display:grid;place-items:center;min-height:initial;padding:clamp(34px,5vw,62px) 1.25rem 52px;color:#f1efff;background:transparent;font-family:inherit; }
+.stopwatch { position:relative;isolation:isolate;overflow:hidden;width:min(100%,940px);max-width:940px;padding:clamp(30px,5.5vw,62px);border:1px solid rgba(255,255,255,.14);border-radius:31px;background:radial-gradient(ellipse at 50% -60%,rgba(104,94,224,.5),transparent 70%),linear-gradient(143deg,#181a34,#202346 66%,#26244a);text-align:center;box-shadow:0 24px 72px rgba(36,35,82,.19); }
+.timer-kicker { display:flex;align-items:center;justify-content:center;gap:9px;margin:0 0 11px;color:#b8b5e7;font-size:.67rem;font-weight:760;letter-spacing:.16em; }.timer-kicker span{width:7px;height:7px;border-radius:50%;background:#a49eff;box-shadow:0 0 14px #7c75ed}
+h1 { margin:0;color:#fff;font-size:clamp(2rem,5vw,3rem);font-weight:650;letter-spacing:-.045em; }
+.intro { margin:8px 0 0;color:#b9bbd3;font-size:.92rem; }
+.time { position:relative;margin:clamp(36px,7vw,66px) 0 0;padding:clamp(26px,5vw,46px) 12px;border:1px solid rgba(255,255,255,.1);border-radius:23px;background:rgba(9,11,31,.35);color:#b2aaff;font:650 clamp(3rem,11vw,7.3rem)/1 'Manrope','SF Pro Display',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.075em;overflow-wrap:normal;text-shadow:0 0 42px rgba(141,130,255,.21);transition:color .2s,text-shadow .2s,border-color .2s}
+.running .time { color:#a9f3dc;text-shadow:0 0 44px rgba(92,235,194,.19);border-color:rgba(139,238,210,.2) }
+.precision { margin:12px 0 0;color:#979db8;font-size:.73rem;letter-spacing:.04em; }
+.status { display:inline-flex;align-items:center;gap:8px;margin:20px 0 0;padding:6px 13px;border:1px solid rgba(255,255,255,.12);border-radius:50px;background:rgba(255,255,255,.06);color:#d0d0e6;font-size:.78rem;font-weight:650; }
+.status::before{width:7px;height:7px;border-radius:50%;background:#aaa8c2;content:""}.running .status::before{background:#53d4a6;box-shadow:0 0 10px #53d4a6}
+.controls { display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:27px 0 22px; }
+button { min-width:112px;min-height:48px;padding:12px 22px;border:1px solid #5c55d6;border-radius:13px;background:linear-gradient(140deg,#746cea,#5750d2);color:#fff;font-size:.9rem;font-weight:750;box-shadow:0 7px 20px rgba(82,73,201,.22);transition:transform .15s,filter .15s,box-shadow .15s; }
+button:hover:enabled{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 10px 24px rgba(82,73,201,.29)}button:disabled{border-color:#444663;background:#343650;color:#8f91ac;box-shadow:none}button:focus-visible{outline-color:#b1ecdc}
+.reset{border-color:rgba(208,206,240,.25);background:rgba(255,255,255,.055);color:#deddf4;box-shadow:none}.reset:hover:enabled{color:#fff;background:rgba(255,255,255,.12)}
+.note { max-width:610px;margin:12px auto 0;color:#a4a8c0;font-size:.76rem;line-height:1.6; }
+@media(max-width:520px){:host{padding:28px 14px 35px}.stopwatch{padding:32px 17px;border-radius:25px}.time{font-size:clamp(2.65rem,12vw,4.3rem);padding:29px 5px;letter-spacing:-.09em;border-radius:18px}.controls{gap:8px;margin:23px 0 20px}button{min-width:95px;flex:1;padding:11px 12px}}

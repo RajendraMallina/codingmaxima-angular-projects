@@ -10,7 +10,11 @@
     "serve:ssr:test-projects": "node dist/test-projects/server/server.mjs"
   },
   "private": true,
-  "packageManager": "npm@10.9.9",
+  "packageManager": "npm@11.21.1",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0",
+    "npm": ">=11.21.1 <12"
+  },
   "dependencies": {
     "@angular/common": "^22.2.0",
     "@angular/compiler": "^22.2.0",

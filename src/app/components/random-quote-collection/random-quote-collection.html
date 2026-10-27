@@ -1,5 +1,11 @@
-<main class="collection" aria-labelledby="collection-title" [attr.aria-busy]="state() === 'loading'">
-  <h1 id="collection-title" class="visually-hidden">Random Quote Collection</h1>
+<header class="cm-project-header">
+  <a class="cm-skip-link" href="#project-content">Skip to project</a>
+  <a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a>
+  <span class="cm-project-divider" aria-hidden="true"></span>
+  <div class="cm-project-meta"><span>INDEPENDENT PRACTICE PROJECT</span><strong>Quote Collection</strong></div>
+</header>
+<main id="project-content" class="collection" aria-labelledby="collection-title" [attr.aria-busy]="state() === 'loading'">
+  <header class="collection-heading"><p class="quote-kicker"><span aria-hidden="true">✳</span> A MOMENT OF INSPIRATION</p><h1 id="collection-title">Random Quote Collection</h1><p>Words to pause with. Collect fresh perspectives and keep the ones that stay with you.</p></header>
   <form (submit)="$event.preventDefault(); generate()" novalidate>
     <div class="quote-panel">
       @switch (state()) {
@@ -63,4 +69,5 @@
   </form>
   <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{{ announcement() }}</p>
 </main>
+<footer class="cm-project-footer"><span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span><span class="cm-footer-label">INDEPENDENT PROJECT</span></footer>
 

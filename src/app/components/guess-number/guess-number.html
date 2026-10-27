@@ -1,8 +1,15 @@
-<main class="game" aria-labelledby="game-title" [class.won]="round()?.status === 'won'"
+<header class="cm-project-header">
+  <a class="cm-skip-link" href="#project-content">Skip to project</a>
+  <a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a>
+  <span class="cm-project-divider" aria-hidden="true"></span>
+  <div class="cm-project-meta"><span>INDEPENDENT PRACTICE PROJECT</span><strong>Number Guessing Game</strong></div>
+</header>
+<main id="project-content" class="game" aria-labelledby="game-title" [class.won]="round()?.status === 'won'"
   [class.lost]="round()?.status === 'lost'">
   <header>
+    <p class="game-kicker"><span aria-hidden="true">✳</span> A QUICK BRAIN BREAK</p>
     <h1 id="game-title">Guess the Number Game</h1>
-    <p>Find the secret integer from <strong>1 through 20</strong>, inclusive.</p>
+    <p>Find the secret integer hiding between <strong>1 and 20</strong>.</p>
   </header>
 
   <div class="secret" [attr.aria-label]="round()?.status === 'playing' || !round() ? 'Secret number hidden' : 'Secret number: ' + round()?.secret">
@@ -39,4 +46,5 @@
   <p id="game-rules" class="rules">Start with 20 points. Each valid incorrect guess costs 1 point.
     Invalid guesses cost nothing. A correct guess wins; zero points ends the round.</p>
 </main>
+<footer class="cm-project-footer"><span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span><span class="cm-footer-label">INDEPENDENT PROJECT</span></footer>
 

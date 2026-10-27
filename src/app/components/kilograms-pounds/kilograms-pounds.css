@@ -55,3 +55,20 @@ input:focus {
   color: #526078;
   font-size: 0.9rem;
 }
+
+:host { display:block; padding:clamp(30px,5vw,62px) 1.25rem 52px; color:var(--cm-text); font-family:inherit; }
+.converter { width:min(100%,990px); margin:0 auto; padding:clamp(25px,5vw,52px); border:1px solid rgba(224,226,238,.9); border-radius:var(--cm-radius-lg); background:rgba(255,255,255,.95); box-shadow:var(--cm-shadow-sm); }
+.eyebrow { display:flex; align-items:center; gap:10px; margin-bottom:19px; color:var(--cm-primary); font-size:.68rem; font-weight:800; letter-spacing:.13em; }
+.eyebrow-icon { display:grid; place-items:center; width:35px; height:35px; border-radius:11px; background:var(--cm-accent); color:var(--cm-primary); font-size:.85rem; letter-spacing:-.03em; }
+h1 { max-width:700px; margin:0 0 8px; font-size:clamp(1.8rem,4vw,2.65rem); line-height:1.18; color:var(--cm-text); }
+.intro { margin-bottom:31px; color:#737b90; font-size:1rem; }
+.fields { grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:0; }
+.field { padding:21px; border:1px solid var(--cm-border); border-radius:19px; background:linear-gradient(148deg,#fff 60%,#fafaff); }
+label { margin-bottom:13px; color:#566078; font-size:.83rem; }
+input { min-height:68px; padding:15px 17px; border:1px solid #e2e4ef; border-radius:13px; background:#fafaff; color:var(--cm-text); font-family:'Manrope',sans-serif; font-size:1.4rem; font-weight:700; transition:border-color .15s,box-shadow .15s,background .15s; }
+input:focus { outline:none; border-color:#817af0; background:white; box-shadow:0 0 0 4px rgba(94,85,220,.1); }
+.result { margin:19px 0 0; padding:20px 23px; border:1px solid #dcdafa; border-radius:16px; background:linear-gradient(115deg,#f4f3ff,#f5fbff); color:#3c3991; font-size:clamp(1rem,2.1vw,1.35rem); line-height:1.55; overflow-wrap:anywhere; }
+.result:has(> :empty) { color:var(--cm-muted); }
+.formula { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:18px 0 0; color:#737b90; font-size:.81rem; }
+.formula>span:first-child { color:var(--cm-primary); font-size:1.05rem; }.formula strong{color:#434a60;font-weight:700}
+@media(max-width:620px){:host{padding:28px 14px 34px}.converter{padding:23px 18px;border-radius:23px}.fields{grid-template-columns:1fr;gap:12px}.field{padding:17px}.intro{margin-bottom:22px}input{min-height:60px}}

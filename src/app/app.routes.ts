@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  { path: '', loadComponent: () => import('./project-gallery').then((m) => m.ProjectGallery) },
   {
     path: 'kilograms-pounds',
     loadComponent: () =>
