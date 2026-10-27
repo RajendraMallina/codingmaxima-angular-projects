@@ -1,0 +1,66 @@
+<main class="collection" aria-labelledby="collection-title" [attr.aria-busy]="state() === 'loading'">
+  <h1 id="collection-title" class="visually-hidden">Random Quote Collection</h1>
+  <form (submit)="$event.preventDefault(); generate()" novalidate>
+    <div class="quote-panel">
+      @switch (state()) {
+        @case ('loading') {
+          <p>Loading the quote catalog...</p>
+        }
+        @case ('empty') {
+          <h2>No quotes yet</h2>
+          <p>The catalog has no quotes. Try loading it again.</p>
+          <button type="button" (click)="reloadCatalog()">Reload catalog</button>
+        }
+        @case ('error') {
+          <h2>Quotes unavailable</h2>
+          <p role="alert">{{ catalogError() }}</p>
+          <button type="button" (click)="reloadCatalog()">Retry loading</button>
+        }
+        @case ('ready') {
+          <section aria-labelledby="selected-title">
+            <h2 id="selected-title" class="visually-hidden">Your quote collection</h2>
+            <div class="quote-list">
+              @for (quote of quotes(); track quote.id; let index = $index) {
+                <figure class="quote-card" [class.tone-two]="index % 5 === 1"
+                  [class.tone-three]="index % 5 === 2" [class.tone-four]="index % 5 === 3"
+                  [class.tone-five]="index % 5 === 4" [attr.data-quote-id]="quote.id"
+                  [attr.title]="quote.author">
+                  <blockquote><p>{{ quote.text }}</p></blockquote>
+                  <figcaption [class.visually-hidden]="!showAuthors()">— <cite>{{ quote.author }}</cite></figcaption>
+                </figure>
+              } @empty {
+                <p>Enter a valid count and regenerate your quotes.</p>
+              }
+            </div>
+          </section>
+        }
+      }
+      <div class="actions">
+        <button type="submit" [disabled]="state() !== 'ready'">Regenerate Quotes</button>
+      </div>
+      <p id="count-error" class="error" role="alert">{{ validationError() }}</p>
+    </div>
+
+    <details class="settings">
+      <summary>Collection settings</summary>
+      <div class="count-field">
+        <label for="quote-count">Number of quotes</label>
+        <input id="quote-count" type="number" min="1" step="1" [value]="requestedCount()"
+          (input)="updateCount($event)" [disabled]="state() !== 'ready'"
+          [attr.aria-invalid]="validationError() ? 'true' : null"
+          aria-describedby="count-help count-error" />
+      </div>
+      <p id="count-help" class="help">
+        @if (state() === 'ready') {
+          {{ catalog().length }} quotes available. Larger requests show the whole catalog.
+          When all quotes are selected, the same membership is unavoidable; their order can change.
+        } @else {
+          Enter a positive whole number.
+        }
+      </p>
+      <label class="author-toggle"><input type="checkbox" (change)="showAuthors.set($any($event.target).checked)" /> Show authors</label>
+    </details>
+  </form>
+  <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{{ announcement() }}</p>
+</main>
+

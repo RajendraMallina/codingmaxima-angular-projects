@@ -1,0 +1,26 @@
+<section class="converter" aria-labelledby="converter-title">
+  <h1 id="converter-title">Kilograms and Pounds Converter</h1>
+  <p>Enter a weight in either field to convert it automatically.</p>
+
+  <div class="fields">
+    <div class="field">
+      <label for="kilograms">Kilograms (kg)</label>
+      <input id="kilograms" type="number" min="0" step="any" placeholder="Enter kilograms"
+        [value]="kilograms()" (input)="convert($event, 'kilograms')" />
+    </div>
+    <div class="field">
+      <label for="pounds">Pounds (lb)</label>
+      <input id="pounds" type="number" min="0" step="any" placeholder="Enter pounds"
+        [value]="pounds()" (input)="convert($event, 'pounds')" />
+    </div>
+  </div>
+
+  <p class="result" aria-live="polite">
+    @if (kilograms() !== null && pounds() !== null) {
+      {{ kilograms() | number: '1.0-6' }} kg = {{ pounds() | number: '1.0-6' }} lb
+    } @else {
+      Enter a valid, non-negative weight to see the result.
+    }
+  </p>
+  <p class="formula">1 kilogram = 2.2046226218 pounds</p>
+</section>

@@ -1,0 +1,34 @@
+<section class="converter" aria-labelledby="converter-title">
+  <h1 id="converter-title">Centimeters, Feet, and Inches Converter</h1>
+  <p>Enter centimeters, or enter feet and inches together, to convert automatically.</p>
+
+  <div class="fields">
+    <div class="field">
+      <label for="centimeters">Centimeters (cm)</label>
+      <input id="centimeters" type="number" min="0" step="any" placeholder="Enter centimeters"
+        [value]="centimeters()" (input)="convertCentimeters($event)" />
+    </div>
+    <div class="field">
+      <label for="feet">Feet (ft)</label>
+      <input #feetInput id="feet" type="number" min="0" step="1" placeholder="Whole feet"
+        [value]="feet()" (input)="convertFeetAndInches(feetInput, inchesInput)" />
+    </div>
+    <div class="field">
+      <label for="inches">Inches (in)</label>
+      <input #inchesInput id="inches" type="number" min="0" step="any" placeholder="Additional inches"
+        [value]="inches()" (input)="convertFeetAndInches(feetInput, inchesInput)" />
+    </div>
+  </div>
+
+  <p class="result" aria-live="polite">
+    @if (invalid()) {
+      Enter non-negative values and use a whole number for feet.
+    } @else if (centimeters() !== null) {
+      {{ centimeters() | number: '1.0-6' }} cm = {{ (feet() ?? 0) | number: '1.0-0' }} ft
+      {{ (inches() ?? 0) | number: '1.0-6' }} in
+    } @else {
+      Enter a length to see the result.
+    }
+  </p>
+  <p class="formula">1 foot = 12 inches. 1 inch = 2.54 centimeters. A blank feet or inches field counts as zero.</p>
+</section>

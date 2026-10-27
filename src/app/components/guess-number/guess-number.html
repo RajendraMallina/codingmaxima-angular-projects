@@ -1,0 +1,42 @@
+<main class="game" aria-labelledby="game-title" [class.won]="round()?.status === 'won'"
+  [class.lost]="round()?.status === 'lost'">
+  <header>
+    <h1 id="game-title">Guess the Number Game</h1>
+    <p>Find the secret integer from <strong>1 through 20</strong>, inclusive.</p>
+  </header>
+
+  <div class="secret" [attr.aria-label]="round()?.status === 'playing' || !round() ? 'Secret number hidden' : 'Secret number: ' + round()?.secret">
+    {{ round() && round()?.status !== 'playing' ? round()?.secret : '?' }}
+  </div>
+
+  <dl class="scores">
+    <div><dt>Score</dt><dd data-testid="score">{{ round()?.score ?? 20 }}</dd></div>
+    <div><dt>Session high score</dt><dd data-testid="high-score">{{ session.highScore() }}</dd></div>
+  </dl>
+
+  <form (submit)="$event.preventDefault(); check(guessInput, restartButton)" novalidate>
+    <label for="guess">Your guess</label>
+    <div class="guess-controls">
+      <input #guessInput id="guess" name="guess" type="text" maxlength="32" inputmode="numeric" autocomplete="off"
+        placeholder="1–20" [disabled]="!round() || round()?.status !== 'playing'"
+        [attr.aria-invalid]="error() ? 'true' : null" aria-describedby="game-rules feedback" />
+      <button type="submit" [disabled]="!round() || round()?.status !== 'playing'">Check guess</button>
+    </div>
+  </form>
+
+  <p id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true">
+    @if (error()) {
+      {{ error() }}
+    } @else if (round(); as current) {
+      @if (current.turns > 0) { Turn {{ current.turns }}: }
+      {{ current.feedback }}
+      @if (current.status !== 'playing') { The secret number was {{ current.secret }}. }
+    } @else {
+      Preparing your round...
+    }
+  </p>
+  <button #restartButton class="restart" type="button" (click)="restart(guessInput)" [disabled]="!round()">Start new round</button>
+  <p id="game-rules" class="rules">Start with 20 points. Each valid incorrect guess costs 1 point.
+    Invalid guesses cost nothing. A correct guess wins; zero points ends the round.</p>
+</main>
+
