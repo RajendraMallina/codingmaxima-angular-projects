@@ -1,0 +1,126 @@
+<div class="lab-page">
+  <header class="cm-project-header">
+    <a class="cm-skip-link" href="#project-content">Skip to project</a
+    ><a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"
+      ><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a
+    ><span class="cm-project-divider" aria-hidden="true"></span>
+    <div class="cm-project-meta">
+      <span>INDEPENDENT PRACTICE PROJECT</span><strong>Weather Dashboard</strong>
+    </div>
+  </header>
+  <main id="project-content" class="lab-content">
+    <section class="lab-intro">
+      <p class="lab-kicker"><span aria-hidden="true">☀</span> PUBLIC APIS · WEATHER</p>
+      <h1>Weather Dashboard</h1>
+      <p>
+        Find a city, choose the right location, and explore its current conditions and seven-day
+        forecast.
+      </p>
+    </section>
+    <div class="lab-layout">
+      <section class="lab-card">
+        <div class="lab-card-body">
+          <div class="lab-card-heading">
+            <div>
+              <h2>Find a city</h2>
+              <p>Choose a matching location after searching.</p>
+            </div>
+            <span class="lab-icon" aria-hidden="true">⌕</span>
+          </div>
+          <form class="lab-form" (ngSubmit)="search()">
+            <div class="lab-field">
+              <label for="weather-query">City name</label
+              ><input
+                id="weather-query"
+                name="city"
+                [(ngModel)]="query"
+                placeholder="Try London"
+                maxlength="100"
+                required
+              />
+            </div>
+            <button class="lab-button primary" type="submit">Search locations</button>
+          </form>
+          <div class="api-results">
+            @for (item of places(); track item.id) {
+              <button type="button" class="lab-button" (click)="choose(item)">
+                {{ item.name }}{{ item.admin1 ? ', ' + item.admin1 : ''
+                }}{{ item.country ? ', ' + item.country : '' }}
+              </button>
+            }
+          </div>
+        </div>
+      </section>
+      <div class="api-stack">
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <h2 class="api-section-title">
+              {{ place()?.name || 'Your forecast' }}
+              @if (place()?.country) {
+                , {{ place()?.country }}
+              }
+            </h2>
+            <p class="api-status" role="status" aria-live="polite">{{ status() }}</p>
+            @if (weather(); as forecast) {
+              <p class="api-note">Local time zone: {{ forecast.timezone || 'Not available' }}</p>
+              <div class="api-detail">
+                <div>
+                  <span>Current temperature</span
+                  ><strong>{{ value(forecast.current?.temperature_2m, '°C') }}</strong>
+                </div>
+                <div>
+                  <span>Conditions</span
+                  ><strong>{{ label(forecast.current?.weather_code) }}</strong>
+                </div>
+                <div>
+                  <span>Feels like</span
+                  ><strong>{{ value(forecast.current?.apparent_temperature, '°C') }}</strong>
+                </div>
+                <div>
+                  <span>Humidity</span
+                  ><strong>{{ value(forecast.current?.relative_humidity_2m, '%') }}</strong>
+                </div>
+                <div>
+                  <span>Wind speed</span
+                  ><strong>{{ value(forecast.current?.wind_speed_10m, ' km/h') }}</strong>
+                </div>
+              </div>
+              <h2 class="api-section-title api-subtitle">Seven-day forecast</h2>
+              <div class="api-results">
+                @for (day of forecast.daily?.time || []; track day; let i = $index) {
+                  <div class="api-result">
+                    <div>
+                      <h3>{{ day }}</h3>
+                      <p>
+                        {{ label(forecast.daily?.weather_code?.[i]) }} · Rain chance
+                        {{ value(forecast.daily?.precipitation_probability_max?.[i], '%') }}
+                      </p>
+                    </div>
+                    <strong
+                      >{{ value(forecast.daily?.temperature_2m_max?.[i], '°') }} /
+                      {{ value(forecast.daily?.temperature_2m_min?.[i], '°') }}</strong
+                    >
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </section>
+        <p class="api-note">
+          Weather and location data from
+          <a
+            class="api-source"
+            href="https://open-meteo.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Open-Meteo ↗</a
+          >
+        </p>
+      </div>
+    </div>
+  </main>
+  <footer class="cm-project-footer">
+    <span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span
+    ><span class="cm-footer-label">INDEPENDENT PROJECT</span>
+  </footer>
+</div>

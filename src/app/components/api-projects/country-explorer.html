@@ -1,0 +1,143 @@
+<div class="lab-page">
+  <header class="cm-project-header">
+    <a class="cm-skip-link" href="#project-content">Skip to project</a
+    ><a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"
+      ><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a
+    ><span class="cm-project-divider" aria-hidden="true"></span>
+    <div class="cm-project-meta">
+      <span>INDEPENDENT PRACTICE PROJECT</span><strong>Country Explorer</strong>
+    </div>
+  </header>
+  <main id="project-content" class="lab-content">
+    <section class="lab-intro">
+      <p class="lab-kicker"><span aria-hidden="true">◎</span> PUBLIC APIS · DISCOVERY</p>
+      <h1>Country Explorer</h1>
+      <p>
+        Discover countries, explore their details, and return to places you have viewed recently.
+      </p>
+    </section>
+    <div class="lab-layout">
+      <div class="api-stack">
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <div class="lab-card-heading">
+              <div>
+                <h2>Find a country</h2>
+                <p>Search by full or partial country name.</p>
+              </div>
+              <span class="lab-icon" aria-hidden="true">⌕</span>
+            </div>
+            <form class="lab-form" (ngSubmit)="search()">
+              <div class="lab-field">
+                <label for="country-query">Country name</label
+                ><input
+                  id="country-query"
+                  name="country"
+                  [(ngModel)]="query"
+                  placeholder="Try India or United"
+                  maxlength="100"
+                  required
+                />
+              </div>
+              <button class="lab-button primary" type="submit">Search countries</button>
+            </form>
+          </div>
+        </section>
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <h2 class="api-section-title">Recently viewed</h2>
+            <p class="api-note">Saved in this browser.</p>
+            <div class="api-chips">
+              @for (item of recent(); track item.code) {
+                <button class="lab-button small" type="button" (click)="openRecent(item)">
+                  {{ item.name }}
+                </button>
+              } @empty {
+                <p class="api-note">Countries you open will appear here.</p>
+              }
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="api-stack">
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <h2 class="api-section-title">Search results</h2>
+            <p class="api-status" role="status" aria-live="polite">{{ status() }}</p>
+            <div class="api-results">
+              @for (country of results(); track country.alpha2Code || country.name) {
+                <article class="api-result">
+                  <div class="api-title">
+                    @if (flag(country)) {
+                      <img class="api-flag" [src]="flag(country)" alt="" />
+                    }
+                    <div>
+                      <h3>{{ country.name }}</h3>
+                      <p>
+                        {{ country.capital || 'Capital unavailable' }} ·
+                        {{ country.region || 'Region unavailable' }}
+                      </p>
+                    </div>
+                  </div>
+                  <button class="lab-button small" type="button" (click)="show(country)">
+                    View details
+                  </button>
+                </article>
+              }
+            </div>
+          </div>
+        </section>
+        @if (selected(); as country) {
+          <section class="lab-card">
+            <div class="lab-card-body">
+              <div class="lab-card-heading">
+                <div>
+                  <h2>{{ country.name }}</h2>
+                  <p>{{ country.subregion || country.region || 'Country details' }}</p>
+                </div>
+                @if (flag(country)) {
+                  <img class="api-flag" [src]="flag(country)" alt="" />
+                }
+              </div>
+              <div class="api-detail">
+                <div>
+                  <span>Capital</span><strong>{{ country.capital || 'Not available' }}</strong>
+                </div>
+                <div>
+                  <span>Region</span><strong>{{ country.region || 'Not available' }}</strong>
+                </div>
+                <div>
+                  <span>Population</span><strong>{{ population(country) }}</strong>
+                </div>
+                <div>
+                  <span>Languages</span><strong>{{ languages(country) }}</strong>
+                </div>
+                <div>
+                  <span>Currencies</span><strong>{{ currencies(country) }}</strong>
+                </div>
+                <div>
+                  <span>Time zones</span
+                  ><strong>{{ country.timezones?.join(', ') || 'Not available' }}</strong>
+                </div>
+              </div>
+            </div>
+          </section>
+        }
+        <p class="api-note">
+          Country data from
+          <a
+            class="api-source"
+            href="https://countries.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >countries.dev ↗</a
+          >
+        </p>
+      </div>
+    </div>
+  </main>
+  <footer class="cm-project-footer">
+    <span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span
+    ><span class="cm-footer-label">INDEPENDENT PROJECT</span>
+  </footer>
+</div>

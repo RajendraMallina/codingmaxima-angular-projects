@@ -17,7 +17,7 @@ import { PRACTICE_PROJECTS } from './project-catalog';
         <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> YOUR CREATIVE SPACE TO PRACTICE</p>
         <h1 id="gallery-title">Small ideas.<br /><span>Stronger coding skills.</span></h1>
         <p class="intro-copy">A hands-on collection of little tools and challenges. Choose a project, play around, and learn by doing.</p>
-        <div class="gallery-meta"><span><span aria-hidden="true">✳</span> 8 interactive projects</span><span aria-hidden="true" class="meta-divider">·</span><span>Made to explore</span></div>
+        <div class="gallery-meta"><span><span aria-hidden="true">✳</span> {{ projects.length }} interactive projects</span><span aria-hidden="true" class="meta-divider">·</span><span>Made to explore</span></div>
       </section>
       <section class="project-grid" aria-label="Browse all practice projects">
         @for (project of projects; track project.path; let i = $index) {
@@ -30,7 +30,7 @@ import { PRACTICE_PROJECTS } from './project-catalog';
         }
       </section>
     </main>
-    <footer class="cm-project-footer"><span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span><span class="cm-footer-label">8 INDEPENDENT PROJECTS</span></footer>
+    <footer class="cm-project-footer"><span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span><span class="cm-footer-label">{{ projects.length }} INDEPENDENT PROJECTS</span></footer>
   `,
   styles: `
     :host{display:block}.gallery{width:min(calc(100% - 3rem),1120px);margin:0 auto;padding:clamp(38px,6vw,76px) 0 72px}

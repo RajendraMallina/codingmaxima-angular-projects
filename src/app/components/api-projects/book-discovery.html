@@ -1,0 +1,130 @@
+<div class="lab-page">
+  <header class="cm-project-header">
+    <a class="cm-skip-link" href="#project-content">Skip to project</a
+    ><a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"
+      ><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a
+    ><span class="cm-project-divider" aria-hidden="true"></span>
+    <div class="cm-project-meta">
+      <span>INDEPENDENT PRACTICE PROJECT</span><strong>Book Discovery</strong>
+    </div>
+  </header>
+  <main id="project-content" class="lab-content">
+    <section class="lab-intro">
+      <p class="lab-kicker"><span aria-hidden="true">▤</span> PUBLIC APIS · BOOKS</p>
+      <h1>Book Discovery</h1>
+      <p>Discover books by title or author and add interesting finds to your reading library.</p>
+    </section>
+    <div class="lab-layout">
+      <section class="lab-card">
+        <div class="lab-card-body">
+          <div class="lab-card-heading">
+            <div>
+              <h2>Find a book</h2>
+              <p>Search Open Library's book catalog.</p>
+            </div>
+            <span class="lab-icon" aria-hidden="true">⌕</span>
+          </div>
+          <form class="lab-form" (ngSubmit)="search()">
+            <div class="lab-field">
+              <label for="book-type">Search by</label
+              ><select id="book-type" name="type" [(ngModel)]="type">
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+              </select>
+            </div>
+            <div class="lab-field">
+              <label for="book-query">Search terms</label
+              ><input
+                id="book-query"
+                name="query"
+                [(ngModel)]="query"
+                placeholder="Try Pride and Prejudice"
+                maxlength="150"
+                required
+              />
+            </div>
+            <button class="lab-button primary" type="submit">Search books</button>
+          </form>
+          <p class="api-note api-subtitle">
+            Search results are catalog records; a free full text is not available for every book.
+          </p>
+          <p class="api-note">
+            <a href="/reading-tracker" class="api-source">Open Personal Reading Tracker →</a>
+          </p>
+        </div>
+      </section>
+      <div class="api-stack">
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <h2 class="api-section-title">Search results</h2>
+            <p class="api-status" role="status" aria-live="polite">{{ status() }}</p>
+            <p class="api-status" role="status" aria-live="polite">{{ shelfStatus() }}</p>
+            <div class="api-results">
+              @for (book of books(); track book.key) {
+                <article class="api-result">
+                  <div class="api-title">
+                    @if (cover(book)) {
+                      <img class="api-cover" [src]="cover(book)" alt="" loading="lazy" />
+                    }
+                    <div>
+                      <h3>{{ book.title }}</h3>
+                      <p>
+                        {{ author(book) }} · {{ book.first_publish_year || 'Year unavailable' }}
+                      </p>
+                      @if (url(book)) {
+                        <a
+                          class="api-source"
+                          [href]="url(book)"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >View on Open Library ↗</a
+                        >
+                      }
+                    </div>
+                  </div>
+                  <button class="lab-button small" type="button" (click)="add(book)">
+                    Add to reading list
+                  </button>
+                </article>
+              }
+            </div>
+            @if (total() > 10) {
+              <div class="api-pager">
+                <button
+                  class="lab-button small"
+                  type="button"
+                  [disabled]="page() <= 1"
+                  (click)="load(page() - 1)"
+                >
+                  Previous</button
+                ><span>Page {{ page() }} of {{ Math.ceil(total() / 10) }}</span
+                ><button
+                  class="lab-button small"
+                  type="button"
+                  [disabled]="page() * 10 >= total()"
+                  (click)="load(page() + 1)"
+                >
+                  Next
+                </button>
+              </div>
+            }
+          </div>
+        </section>
+        <p class="api-note">
+          Book data from
+          <a
+            class="api-source"
+            href="https://openlibrary.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Open Library ↗</a
+          >
+        </p>
+      </div>
+    </div>
+  </main>
+  <footer class="cm-project-footer">
+    <span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span
+    ><span class="cm-footer-label">INDEPENDENT PROJECT</span>
+  </footer>
+</div>

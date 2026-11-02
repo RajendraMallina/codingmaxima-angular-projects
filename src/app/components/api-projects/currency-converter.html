@@ -1,0 +1,122 @@
+<div class="lab-page">
+  <header class="cm-project-header">
+    <a class="cm-skip-link" href="#project-content">Skip to project</a
+    ><a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"
+      ><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a
+    ><span class="cm-project-divider" aria-hidden="true"></span>
+    <div class="cm-project-meta">
+      <span>INDEPENDENT PRACTICE PROJECT</span><strong>Currency Converter</strong>
+    </div>
+  </header>
+  <main id="project-content" class="lab-content">
+    <section class="lab-intro">
+      <p class="lab-kicker"><span aria-hidden="true">↔</span> PUBLIC APIS · CURRENCY</p>
+      <h1>Currency Converter</h1>
+      <p>
+        Convert an amount with the latest available rate, or select a date to explore historical
+        rates.
+      </p>
+    </section>
+    <div class="lab-layout">
+      <section class="lab-card">
+        <div class="lab-card-body">
+          <div class="lab-card-heading">
+            <div>
+              <h2>Convert currencies</h2>
+              <p>Rates are reference rates, not live trading prices.</p>
+            </div>
+            <span class="lab-icon" aria-hidden="true">↔</span>
+          </div>
+          <form class="lab-form" (ngSubmit)="convert()">
+            <div class="lab-field">
+              <label for="currency-amount">Amount</label
+              ><input
+                id="currency-amount"
+                name="amount"
+                [(ngModel)]="amount"
+                type="number"
+                min="0"
+                step="any"
+                required
+              />
+            </div>
+            <div class="lab-fields">
+              <div class="lab-field">
+                <label for="currency-base">From</label
+                ><select id="currency-base" name="base" [(ngModel)]="base">
+                  @for (currency of currencies(); track currency.iso_code) {
+                    <option [value]="currency.iso_code">
+                      {{ currency.iso_code }} · {{ currency.name }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div class="lab-field">
+                <label for="currency-quote">To</label
+                ><select id="currency-quote" name="quote" [(ngModel)]="quote">
+                  @for (currency of currencies(); track currency.iso_code) {
+                    <option [value]="currency.iso_code">
+                      {{ currency.iso_code }} · {{ currency.name }}
+                    </option>
+                  }
+                </select>
+              </div>
+            </div>
+            <button type="button" class="lab-button" (click)="swap()">⇄ Swap currencies</button>
+            <div class="lab-field">
+              <label for="currency-date">Historical date (optional)</label
+              ><input id="currency-date" name="date" [(ngModel)]="date" type="date" />
+            </div>
+            <button class="lab-button primary" type="submit" [disabled]="!currencies().length">
+              Convert
+            </button>
+            @if (!currencies().length) {
+              <button class="lab-button" type="button" (click)="loadCurrencies()">
+                Retry currencies
+              </button>
+            }
+          </form>
+        </div>
+      </section>
+      <div class="api-stack">
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <h2 class="api-section-title">Conversion result</h2>
+            <p class="api-status" role="status" aria-live="polite">{{ status() }}</p>
+            @if (result(); as result) {
+              <div class="api-detail">
+                <div>
+                  <span>Converted amount</span
+                  ><strong>{{ number(result.amount * result.rate) }} {{ result.quote }}</strong>
+                </div>
+                <div>
+                  <span>Exchange rate</span
+                  ><strong
+                    >1 {{ result.base }} = {{ number(result.rate) }} {{ result.quote }}</strong
+                  >
+                </div>
+                <div>
+                  <span>Rate date</span><strong>{{ result.date || 'Same currency' }}</strong>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+        <p class="api-note">
+          Rates from
+          <a
+            class="api-source"
+            href="https://frankfurter.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Frankfurter ↗</a
+          >. Availability varies by currency and date.
+        </p>
+      </div>
+    </div>
+  </main>
+  <footer class="cm-project-footer">
+    <span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span
+    ><span class="cm-footer-label">INDEPENDENT PROJECT</span>
+  </footer>
+</div>

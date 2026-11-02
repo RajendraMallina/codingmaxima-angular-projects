@@ -1,0 +1,208 @@
+<div class="lab-page">
+  <header class="cm-project-header">
+    <a class="cm-skip-link" href="#project-content">Skip to project</a
+    ><a class="cm-project-brand" href="https://codingmaxima.com/" aria-label="CodingMaxima website"
+      ><span class="cm-logo" role="img" aria-label="CodingMaxima"></span></a
+    ><span class="cm-project-divider" aria-hidden="true"></span>
+    <div class="cm-project-meta">
+      <span>INDEPENDENT PRACTICE PROJECT</span><strong>GitHub Profile Explorer</strong>
+    </div>
+  </header>
+  <main id="project-content" class="lab-content">
+    <section class="lab-intro">
+      <p class="lab-kicker"><span aria-hidden="true">⌘</span> PUBLIC APIS · DEVELOPERS</p>
+      <h1>GitHub Profile Explorer</h1>
+      <p>Explore a public profile, search repositories, and open repository details.</p>
+    </section>
+    <div class="lab-layout">
+      <div class="api-stack">
+        <section class="lab-card">
+          <div class="lab-card-body">
+            <div class="lab-card-heading">
+              <div>
+                <h2>Find a developer</h2>
+                <p>Enter a GitHub username.</p>
+              </div>
+              <span class="lab-icon" aria-hidden="true">⌕</span>
+            </div>
+            <form class="lab-form" (ngSubmit)="searchProfile()">
+              <div class="lab-field">
+                <label for="github-username">Username</label
+                ><input
+                  id="github-username"
+                  name="username"
+                  [(ngModel)]="username"
+                  placeholder="Try octocat"
+                  maxlength="39"
+                  required
+                />
+              </div>
+              <button class="lab-button primary">Find profile</button>
+            </form>
+            <p class="api-status api-subtitle" role="status" aria-live="polite">{{ status() }}</p>
+          </div>
+        </section>
+        @if (profile(); as user) {
+          <section class="lab-card">
+            <div class="lab-card-body">
+              <div class="api-title">
+                @if (avatar(user)) {
+                  <img class="api-avatar" [src]="avatar(user)" alt="" />
+                }
+                <div>
+                  <h2>{{ user.name || user.login }}</h2>
+                  <p class="api-note">&#64;{{ user.login }}</p>
+                </div>
+              </div>
+              <p class="api-note api-subtitle">{{ user.bio || 'No bio provided.' }}</p>
+              <div class="api-detail">
+                <div>
+                  <span>Public repositories</span
+                  ><strong>{{ user.public_repos ?? 'Not available' }}</strong>
+                </div>
+                <div>
+                  <span>Followers</span><strong>{{ user.followers ?? 'Not available' }}</strong>
+                </div>
+                <div>
+                  <span>Following</span><strong>{{ user.following ?? 'Not available' }}</strong>
+                </div>
+                <div>
+                  <span>Location</span><strong>{{ user.location || 'Not provided' }}</strong>
+                </div>
+              </div>
+              <p class="api-note api-subtitle">
+                <a
+                  class="api-source"
+                  [href]="profileUrl()"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View profile on GitHub ↗</a
+                >
+              </p>
+            </div>
+          </section>
+        }
+      </div>
+      <div class="api-stack">
+        @if (profile()) {
+          <section class="lab-card">
+            <div class="lab-card-body">
+              <h2 class="api-section-title">Repositories</h2>
+              <form class="lab-form" (ngSubmit)="searchRepos()">
+                <div class="lab-field">
+                  <label for="github-repos">Search repository names</label
+                  ><input
+                    id="github-repos"
+                    name="repos"
+                    [(ngModel)]="repoSearch"
+                    placeholder="Search all repositories"
+                    maxlength="100"
+                  />
+                </div>
+                <button class="lab-button" type="submit">Search repositories</button>
+              </form>
+              <div class="lab-field api-subtitle">
+                <label for="github-sort">Sort this page</label
+                ><select id="github-sort" [(ngModel)]="sort">
+                  <option value="updated">Recently updated</option>
+                  <option value="name">Name</option>
+                </select>
+              </div>
+              <p class="api-status api-subtitle" role="status" aria-live="polite">
+                {{ repoStatus() }}
+              </p>
+              <div class="api-results">
+                @for (repo of sorted(); track repo.name) {
+                  <article class="api-result">
+                    <div>
+                      <h3>{{ repo.name }}</h3>
+                      <p>{{ repo.description || 'No description provided.' }}</p>
+                      <p>
+                        {{ repo.language || 'Language unavailable' }} · ★
+                        {{ repo.stargazers_count ?? 0 }}
+                      </p>
+                    </div>
+                    <button class="lab-button small" type="button" (click)="show(repo)">
+                      View details
+                    </button>
+                  </article>
+                }
+              </div>
+              <div class="api-pager">
+                <button
+                  class="lab-button small"
+                  type="button"
+                  [disabled]="page() <= 1"
+                  (click)="loadRepos(page() - 1)"
+                >
+                  Previous</button
+                ><span>Page {{ page() }}</span
+                ><button
+                  class="lab-button small"
+                  type="button"
+                  [disabled]="page() * 10 >= total()"
+                  (click)="loadRepos(page() + 1)"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </section>
+          @if (detail(); as repo) {
+            <section class="lab-card">
+              <div class="lab-card-body">
+                <h2 class="api-section-title">{{ repo.name }}</h2>
+                <p class="api-note">{{ repo.description || 'No description provided.' }}</p>
+                <div class="api-detail">
+                  <div>
+                    <span>Language</span><strong>{{ repo.language || 'Not available' }}</strong>
+                  </div>
+                  <div>
+                    <span>Stars</span><strong>{{ repo.stargazers_count ?? 0 }}</strong>
+                  </div>
+                  <div>
+                    <span>Forks</span><strong>{{ repo.forks_count ?? 0 }}</strong>
+                  </div>
+                  <div>
+                    <span>Default branch</span
+                    ><strong>{{ repo.default_branch || 'Not available' }}</strong>
+                  </div>
+                  <div>
+                    <span>Open issues</span><strong>{{ repo.open_issues_count ?? 0 }}</strong>
+                  </div>
+                  <div>
+                    <span>Last updated</span
+                    ><strong>{{ repo.updated_at || 'Not available' }}</strong>
+                  </div>
+                </div>
+                <p class="api-note api-subtitle">
+                  <a
+                    class="api-source"
+                    [href]="repoUrl(repo)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >View repository on GitHub ↗</a
+                  >
+                </p>
+              </div>
+            </section>
+          }
+        }
+        <p class="api-note">
+          Public data from
+          <a
+            class="api-source"
+            href="https://docs.github.com/en/rest"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub REST API ↗</a
+          >. Unauthenticated requests are limited.
+        </p>
+      </div>
+    </div>
+  </main>
+  <footer class="cm-project-footer">
+    <span><strong>CodingMaxima</strong> · Learn visually. Think logically. Code confidently.</span
+    ><span class="cm-footer-label">INDEPENDENT PROJECT</span>
+  </footer>
+</div>
