@@ -6,6 +6,13 @@ export interface PracticeProject {
   readonly icon: string;
 }
 
+export interface ProjectSection {
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
+  readonly projects: readonly PracticeProject[];
+}
+
 /** The single source of truth for the practice-lab navigation and gallery. */
 export const PRACTICE_PROJECTS: readonly PracticeProject[] = [
   { path: 'kilograms-pounds', title: 'Kilograms & Pounds', category: 'Weight', description: 'Convert between metric and imperial weight with live results.', icon: 'kg' },
@@ -36,3 +43,27 @@ export const PRACTICE_PROJECTS: readonly PracticeProject[] = [
 export function projectForPath(path: string | undefined): PracticeProject | undefined {
   return PRACTICE_PROJECTS.find((project) => project.path === path);
 }
+
+/** Ordered learning paths; every entry refers to the catalog used by navigation. */
+const sectionDefinitions = [
+  { id: 'basic', title: 'Basic', description: 'Start with inputs, calculations, events, and simple state.', paths: [
+    'kilograms-pounds', 'centimeter-feets', 'centimeter-feets-inches', 'digital-clock',
+    'multi-category-unit', 'guess-number', 'stop-watch', 'random-quote-collection',
+  ] },
+  { id: 'intermediate', title: 'Intermediate', description: 'Build forms, manage collections, and connect local workflows.', paths: [
+    'student-records', 'grade-tracker', 'invoice-generator', 'task-planner', 'income-expense',
+    'event-registration', 'reading-tracker', 'blog-studio', 'inventory-orders', 'form-builder',
+  ] },
+  { id: 'api-integration', title: 'API / Backend Integration', description: 'Work with public APIs, asynchronous requests, and external data.', paths: [
+    'country-explorer', 'currency-converter', 'weather-dashboard', 'github-profile-explorer', 'book-discovery',
+  ] },
+] as const;
+
+export const PROJECT_SECTIONS: readonly ProjectSection[] = sectionDefinitions.map(({ paths, ...section }) => ({
+  ...section,
+  projects: paths.map((path) => {
+    const project = projectForPath(path);
+    if (!project) throw new Error(`Unknown practice project: ${path}`);
+    return project;
+  }),
+}));
